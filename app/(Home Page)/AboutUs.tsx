@@ -1,226 +1,98 @@
 "use client";
-import React, { useRef, useEffect } from "react";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useSpring,
-  useInView,
-} from "framer-motion";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
+import React from "react";
+import { EmblaOptionsType } from "embla-carousel";
+import Carousel, {
+  Slider,
+  SliderContainer,
+  SliderProgress,
+  SliderNextButton,
+  SliderPrevButton,
+} from "../App chunks/components/Carousel";
+import { ArrowLeft, ArrowRight, Star } from "lucide-react";
 const AboutUs = () => {
-  const container = useRef<HTMLDivElement>(null);
-  const body = useRef(null);
-  const refs = useRef<(HTMLSpanElement | null)[]>([]); // To store refs for each span
-  const [viewportWidth, setViewportWidth] = React.useState<number>(0);
-  const para1 = `We’re more than just a marketing agency. At Spok Digital, we’re your growth partners. With a deep understanding of digital landscapes, creative strategies, and technology, we specialize in turning ideas into results.`;
-  useEffect(() => {
-    const handleResize = () => {
-      if (typeof window !== "undefined") {
-        // Check if window is defined
-        setViewportWidth(window.innerWidth); // Access window only on the client-side
-      }
-    };
-
-    handleResize();
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize); // Clean up the event listener
-    };
-  }, []);
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-    if (refs.current.length > 0) {
-      createAnimation();
-    }
-  }, []);
-
-  const createAnimation = () => {
-    gsap.to(refs.current, {
-      scrollTrigger: {
-        trigger: container.current,
-        start: "center bottom",
-        end: "center top",
-        scrub: true,
-      },
-      opacity: 1, // Fade in the elements
-      ease: "none",
-      stagger: 0.1, // Add stagger effect
-    });
-  };
-
-  const splitWords = (phrase: string) => {
-    return phrase.split(" ").map((word, i) => {
-      const letters = splitLetters(word);
-      return (
-        <p
-          key={word + "_" + i}
-          className="font-Synonym mr-[1.4vw] lg:mr-[1.1vw]  font-[500] text-lg lg:text-3xl"
-        >
-          {letters}
-        </p>
-      );
-    });
-  };
-
-  const splitLetters = (word: string) => {
-    return word.split("").map((letter, i) => (
-      <span
-        key={letter + "_" + i}
-        style={{ opacity: 0.2 }} // Initially hide the letters
-        ref={(el) => {
-          // Only push new refs during the first render to avoid adding duplicates
-          if (el && !refs.current.includes(el)) {
-            refs.current.push(el);
-          }
-        }}
-      >
-        {letter}
-      </span>
-    ));
-  };
-
-  const { scrollYProgress } = useScroll({
-    target: container,
-    offset: ["start center", "end end"],
-  });
-
-  const pathLength = useTransform(scrollYProgress, [0, 1], [0, 1]);
-
-  // Transform scrollYProgress into y movement
-  const y = useTransform(scrollYProgress, [0, 1], ["20%", "-20%"]);
-
-  // Apply spring for smooth transitions
-  const springY = useSpring(y, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001,
-  });
-
-  const inView = useInView(container, { once: false });
-  const strokeDashoffset = useTransform(pathLength, [0, 1], [1000, 0]);
-  const [containerRECT, setContainerRECT] = React.useState<DOMRect | null>(
-    null
-  );
-
-  useEffect(() => {
-    if (typeof window !== "undefined" && container.current) {
-      setContainerRECT(container?.current.getBoundingClientRect());
-    }
-  }, [container]);
+  const OPTIONS: EmblaOptionsType = { loop: false };
+  const testimonials = [
+    {
+      name: "John Doe",
+      title: "CEO, Example Co.",
+      rating: 5,
+      text: "This service was outstanding! The team was professional, and the results exceeded our expectations.",
+    },
+    {
+      name: "Jane Smith",
+      title: "Marketing Head, Acme Corp.",
+      rating: 4,
+      text: "Highly recommend! They delivered quality work on time.",
+    },
+    {
+      name: "Alice Johnson",
+      title: "Freelancer",
+      rating: 5,
+      text: "Fantastic experience. Will work with them again for future projects.",
+    },
+    {
+      name: "Alice Johnson",
+      title: "Freelancer",
+      rating: 5,
+      text: "Fantastic experience. Will work with them again for future projects.",
+    },
+    {
+      name: "Alice Johnson",
+      title: "Freelancer",
+      rating: 5,
+      text: "Fantastic experience. Will work with them again for future projects.",
+    },
+  ];
 
   return (
-    <div ref={container} className="w-full overflow-hidden  relative py-32">
-      <div className="absolute -z-10 w-full h-full top-1/2 -translate-y-1/2 left-0">
-        <motion.svg
-          width={viewportWidth}
-          height={containerRECT?.height}
-          viewBox={`0 0 ${viewportWidth} ${containerRECT?.height}`}
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <motion.path
-            d="M-92.5 26.5C86.5803 32.6563 596.095 145.706 541.74 413.6C473.796 748.468 147.273 511.314 305 331C431.181 186.749 1056.56 461.602 1302.34 660.594C1649.15 941.385 1892.11 391.73 1494.63 369.865C1347.57 361.776 443.65 590.826 1016.15 855.906C1210.42 945.859 188.418 1079.24 -62 1118"
-            stroke="url(#fadeRedGradient)"
-            strokeWidth="51"
-            strokeLinecap="round"
-            style={{
-              pathLength,
-              strokeDashoffset,
-            }}
-            strokeDasharray="1000"
-          />
-          <defs>
-            <linearGradient
-              id="fadeRedGradient"
-              x1="0"
-              y1="0"
-              x2={viewportWidth}
-              y2={containerRECT?.height}
-              gradientUnits="userSpaceOnUse"
-            >
-              <stop offset="0%" stopColor="#FF0000" stopOpacity="1" />{" "}
-              {/* Bright red */}
-              <stop offset="100%" stopColor="#FF0000" stopOpacity="0.2" />{" "}
-              {/* Slightly faded red */}
-            </linearGradient>
-          </defs>
-        </motion.svg>
-      </div>
+    <div className="w-full overflow-hidden  relative py-12">
       <div className="container">
-        <div className="text-slate-950 leading-[.99] w-full font-Grostek text-[10.5vw] lg:text-[6rem] xl:text-[8rem] font-[400]">
-          <motion.div
-            animate={{
-              paddingLeft:
-                viewportWidth > 450 ? (inView ? "170px" : "0px") : "0px",
-            }}
-            transition={{
-              delay: 1,
-              duration: 0.8,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
-            className="flex items-center lg:inline-block "
-          >
-            {"Shape Imagination".split(" ").map((word, idx) => (
-              <motion.h1
-                animate={{ y: inView ? "0%" : "100%" }}
-                transition={{ duration: 1, delay: 0.3 * idx }}
-                className="inline-block ml-2 lg:ml-5"
+        <h1 className=" text-4xl lg:text-6xl font-Grostek mb-8 font-[600]">
+          Our Clients Experience
+        </h1>
+        <Carousel className="bg-transparent " options={OPTIONS}>
+          <SliderContainer className="gap-2 lg:gap-5 !px-0">
+            {testimonials.map((testimonial, idx) => (
+              <Slider
                 key={idx}
+                className="bg-[hsl(0,70%,90%)] w-2/3 lg:w-1/3 p-6 rounded-xl shadow-md flex flex-col justify-between"
               >
-                {word}
-              </motion.h1>
+                <div>
+                  <div className="flex items-center gap-1 mb-2">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className={`w-5 h-5 lg:h-6 lg:w-6 ${
+                          i < testimonial.rating
+                            ? "fill-yellow-600 text-yellow-600"
+                            : "fill-gray-300 text-gray-300 "
+                        }`}
+                      />
+                    ))}
+                  </div>
+                  <p className="text-gray-700 mb-4">{testimonial.text}</p>
+                </div>
+                <div>
+                  <p className="font-semibold">{testimonial.name}</p>
+                  <p className="text-sm text-gray-500">{testimonial.title}</p>
+                </div>
+              </Slider>
             ))}
-          </motion.div>
-          <motion.div
-            transition={{ delay: 0.8, duration: 1, ease: [] }}
-            className="inline-block   overflow-hidden"
-          >
-            {"Into Reality".split(" ").map((word, idx) => (
-              <motion.h1
-                animate={{ y: inView ? "0%" : "100%" }}
-                transition={{ duration: 1, delay: 0.3 * idx }}
-                className="inline-block ml-3"
-                key={idx}
-              >
-                {word}
-              </motion.h1>
-            ))}
-          </motion.div>
-        </div>
+          </SliderContainer>
 
-        <div className=" mt-6 !text-purple-950">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 ">
-            <div ref={body} className="w-full flex flex-wrap">
-              {splitWords(para1)}
-            </div>
+          <div className="flex items-center gap-5 justify-end my-5">
+            <SliderPrevButton className="bg-red-500 p-2 rounded-full text-slate-50">
+              <ArrowLeft />
+            </SliderPrevButton>
+            <SliderNextButton className="bg-red-500 p-2 rounded-full text-slate-50">
+              <ArrowRight />
+            </SliderNextButton>
           </div>
 
-          {/* Image section */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-            <div></div>
-            <motion.div className="w-full h-[300px] lg:h-[500px] rounded-lg relative overflow-hidden">
-              <motion.div
-                animate={{ y: inView ? "-100%" : "0%" }}
-                transition={{
-                  delay: 0.2,
-                  duration: 0.6,
-                  ease: "easeOut",
-                }}
-                className="w-full h-full absolute z-[10] top-0 left-0 bg-red-100"
-              />
-              <motion.img
-                src={"/AboutUs.avif"}
-                alt="Image"
-                className="w-full h-full object-cover"
-              />
-            </motion.div>
+          <div className="flex justify-center py-2">
+            <SliderProgress />
           </div>
-        </div>
+        </Carousel>
       </div>
     </div>
   );

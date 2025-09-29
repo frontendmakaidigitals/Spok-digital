@@ -50,7 +50,7 @@ const NavBar = () => {
         <motion.div
           initial={{ y: -200 }}
           animate={{ y: 0 }}
-          className="hidden lg:flex lg:!w-[230px] justify-end"
+          className="hidden lg:flex lg:!w-[230px]  justify-end"
           transition={{
             delay: 0.2,
             type: "linear",
@@ -59,7 +59,7 @@ const NavBar = () => {
           }}
         >
           <Link href={"/contact"} className="hidden lg:block">
-            <Button>Contact us</Button>
+            <Button className="">Contact us</Button>
           </Link>
         </motion.div>
         <MobileMenu />

@@ -1,13 +1,14 @@
 "use client";
 import HeroSection from "./(Home Page)/HeroSection";
 import AboutUs from "./(Home Page)/AboutUs";
-import TechStack from "./(Home Page)/TechStack";
+import { TechLogo } from "./(Home Page)/TechLogo";
 import { CompantStats } from "./(Home Page)/CompantStats";
 import MaskSection from "./(Home Page)/MaskSection";
-import Slider from "./(Home Page)/Slider";
+import { TextMarquee } from "./(Home Page)/Text-Marquee";
 import Form from "./App chunks/components/Form";
 import { AnimatePresence, motion } from "framer-motion";
 import { MarqueeLogo } from "./App chunks/components/MarqueeLogo";
+import Service from "./(Home Page)/Service";
 export default function Home() {
   return (
     <AnimatePresence mode="wait">
@@ -25,11 +26,12 @@ export default function Home() {
         }}
       >
         <HeroSection />
+        <Service />
         <AboutUs />
+        <TextMarquee />
         <MaskSection />
-        <TechStack />
         <CompantStats />
-        <Slider />
+        <TechLogo />
         <Form />
         <MarqueeLogo />
       </motion.div>

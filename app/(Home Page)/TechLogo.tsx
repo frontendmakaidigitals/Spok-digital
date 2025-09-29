@@ -3,41 +3,38 @@ import Marquee from "@/components/ui/marquee";
 
 const reviews = [
   {
-    img: "Logo/bizgrowth.png",
+    img: "media/atlassian.png",
   },
   {
-    img: "Logo/Brownstone.png",
+    img: "media/aws.png",
   },
   {
-    img: "Logo/craft-desk.png",
+    img: "media/azure.png",
   },
   {
-    img: "Logo/InsightVision.png",
+    img: "media/bash.png",
   },
   {
-    img: "Logo/menlocloud.png",
+    img: "media/bunjs.png",
   },
   {
-    img: "Logo/milestone.png",
+    img: "media/docker.png",
   },
   {
-    img: "Logo/shobha.png",
+    img: "media/django.png",
   },
-  { img: "Logo/zippro.png" },
+  { img: "media/kotlin.svg" },
 ];
 
-const firstRow = reviews.slice(0, reviews.length / 2);
-const secondRow = reviews.slice(reviews.length / 2);
+const firstRow = reviews.slice(0, reviews.length);
 const ReviewCard = ({ img }: { img: string }) => {
   return (
     <figure
       className={cn(
-        `relative w-[100px] cursor-pointer overflow-hidden ${
+        `relative w-[80px] cursor-pointer ml-10 overflow-hidden ${
           img.split("/").pop() == "Spok Digital.png" ? "bg-black p-2" : ""
         } ${img.split("/").pop() == "bizgrowth.png" ? " p-2" : ""}
-        ${
-          img.split("/").pop() == "craft-desk.png" ? " p-2" : ""
-        } rounded-xl border`
+        ${img.split("/").pop() == "craft-desk.png" ? " p-2" : ""} rounded-xl `
       )}
     >
       <img className=" w-full h-full object-contain" src={img} />
@@ -45,14 +42,9 @@ const ReviewCard = ({ img }: { img: string }) => {
   );
 };
 
-export function MarqueeLogo() {
+export function TechLogo() {
   return (
-    <div className="relative bg-red-100 flex h-[400px] w-full flex-col items-center justify-center overflow-hidden rounded-lg">
-      <Marquee reverse pauseOnHover className="[--duration:20s]">
-        {secondRow.map((review, index) => (
-          <ReviewCard key={index} {...review} />
-        ))}
-      </Marquee>
+    <div className="relative pt-16 pb-5 bg-red-100 flex  w-full flex-col items-center justify-center overflow-hidden rounded-lg">
       <Marquee pauseOnHover className="[--duration:20s]">
         {firstRow.map((review, index) => (
           <ReviewCard key={index} {...review} />

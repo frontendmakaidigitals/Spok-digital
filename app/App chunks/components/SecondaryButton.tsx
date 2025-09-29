@@ -10,7 +10,7 @@ const Button: React.FC<ButtonProps> = ({ children, className }) => {
     <button className="group relative">
       <div
         className={`relative z-10 inline-flex h-12 items-center justify-center overflow-hidden rounded-full
-      bg-gradient-to-r from-[#ffcaca] to-[#ff7777] border-2 border-[#FF0000]
+      bg-gradient-to-r from-[#f95656] to-[#ff7777] border-2 border-[#f86969]
       px-6 font-medium text-white transition-all duration-300
       group-hover:-translate-x-3 group-hover:-translate-y-3 ${className}`}
       >

@@ -1,53 +1,29 @@
 "use client";
-import React from "react";
-import { useScroll, useTransform, motion, MotionValue } from "framer-motion";
-import { useEffect, useRef } from "react";
-import { BackgroundGradientAnimation } from "../App chunks/components/HeroGradient";
-import { ArrowUpRight } from "@phosphor-icons/react";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { useEffect } from "react";
 import "../App chunks/components/textAnim.css";
-import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import SliderForm from "../App chunks/components/SliderForm";
-import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 export default function HeroSection() {
-  const container = useRef<HTMLElement | null>(null);
-  const { scrollYProgress } = useScroll({
-    target: container,
-    offset: ["start start", "end end"],
-  });
   const [isFormOpen, setIsFormOpen] = React.useState<boolean>(false);
-  const [isAnimationEnabled, setIsAnimationEnabled] =
-    React.useState<boolean>(true);
 
   return (
     <>
-      <main ref={container} className="relative ">
+      <main className="relative ">
         <SliderForm isFormOpen={isFormOpen} setIsFormOpen={setIsFormOpen} />
-        <Section1
-          scrollYProgress={scrollYProgress}
-          setIsFormOpen={setIsFormOpen}
-          isAnimationEnabled={isAnimationEnabled}
-        />
-        <Section2
-          scrollYProgress={scrollYProgress}
-          setIsAnimationEnabled={setIsAnimationEnabled}
-        />
+        <Section1 setIsFormOpen={setIsFormOpen} />
       </main>
     </>
   );
 }
 
 const Section1 = ({
-  scrollYProgress,
   setIsFormOpen,
-  isAnimationEnabled,
 }: {
-  scrollYProgress: MotionValue<number>;
   setIsFormOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  isAnimationEnabled?: boolean;
 }) => {
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.5]);
-  const rotate = useTransform(scrollYProgress, [0, 1], [0, -10]);
   const tags = [
     "360 Marketing Agency",
     "Strategic Branding",
@@ -62,22 +38,162 @@ const Section1 = ({
       });
     }
   };
+  const [size, setSize] = useState({ width: 0, height: 0 });
+
+  const getWindowSize = () => {
+    return {
+      width: window.innerWidth,
+      height: window.innerHeight,
+    };
+  };
+
+  useEffect(() => {
+    const handleResize = () => {
+      setSize(getWindowSize());
+    };
+
+    // Set initial size
+    handleResize();
+
+    // Listen for resize events
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup on unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
-    <motion.section
-      style={{ scale, rotate }}
-      className="sticky bg-black overflow-hidden top-0 h-screen"
-    >
-      <div className="absolute top-0 left-0 h-full w-full -z-[1]">
-        <BackgroundGradientAnimation
-          gradientBackgroundStart="pink"
-          gradientBackgroundEnd="red"
-          animationsEnabled={isAnimationEnabled}
-        />
+    <motion.section className="sticky bg-black overflow-hidden top-0 h-[80vh] lg:h-screen">
+      <div className="absolute opacity-[.7] top-0 left-0 h-full w-full -z-[1]">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          version="1.1"
+          viewBox="0 0 1900 1900"
+          width="1900"
+          height="1900"
+        >
+          <defs>
+            <linearGradient
+              gradientTransform="rotate(-0, 0.5, 0.5)"
+              x1="50%"
+              y1="0%"
+              x2="50%"
+              y2="100%"
+              id="gggrain-gradient2"
+            >
+              <stop
+                stopColor="hsla(0, 94%, 53%, 1.00)"
+                stopOpacity="1"
+                offset="-0%"
+              ></stop>
+              <stop
+                stopColor="rgba(255,255,255,0)"
+                stopOpacity="0"
+                offset="100%"
+              ></stop>
+            </linearGradient>
+            <linearGradient
+              gradientTransform="rotate(0, 0.5, 0.5)"
+              x1="50%"
+              y1="0%"
+              x2="50%"
+              y2="100%"
+              id="gggrain-gradient3"
+            >
+              <stop stopColor="hsl(0, 100%, 50%)" stopOpacity="1"></stop>
+              <stop
+                stopColor="rgba(255,255,255,0)"
+                stopOpacity="0"
+                offset="100%"
+              ></stop>
+            </linearGradient>
+            <filter
+              id="gggrain-filter"
+              x="-20%"
+              y="-20%"
+              width="140%"
+              height="140%"
+              filterUnits="objectBoundingBox"
+              primitiveUnits="userSpaceOnUse"
+              colorInterpolationFilters="sRGB"
+            >
+              <feTurbulence
+                type="fractalNoise"
+                baseFrequency="0.66"
+                numOctaves="2"
+                seed="215"
+                stitchTiles="stitch"
+                x="0%"
+                y="0%"
+                width="100%"
+                height="100%"
+                result="turbulence"
+              ></feTurbulence>
+              <feColorMatrix
+                type="saturate"
+                values="0"
+                x="0%"
+                y="0%"
+                width="100%"
+                height="100%"
+                in="turbulence"
+                result="colormatrix"
+              ></feColorMatrix>
+              <feComponentTransfer
+                x="0%"
+                y="0%"
+                width="100%"
+                height="100%"
+                in="colormatrix"
+                result="componentTransfer"
+              >
+                <feFuncR type="linear" slope="3"></feFuncR>
+                <feFuncG type="linear" slope="3"></feFuncG>
+                <feFuncB type="linear" slope="3"></feFuncB>
+              </feComponentTransfer>
+              <feColorMatrix
+                x="0%"
+                y="0%"
+                width="100%"
+                height="100%"
+                in="componentTransfer"
+                result="colormatrix2"
+                type="matrix"
+                values="1 0 0 0 0
+          0 1 0 0 0
+          0 0 1 0 0
+          0 0 0 23 -15"
+              ></feColorMatrix>
+            </filter>
+          </defs>
+          <g>
+            <rect width="100%" height="100%" fill="hsl(0, 100%, 50%)"></rect>
+            <rect
+              width="100%"
+              height="100%"
+              fill="url(#gggrain-gradient3)"
+            ></rect>
+            <rect
+              width="100%"
+              height="100%"
+              fill="url(#gggrain-gradient2)"
+            ></rect>
+            <rect
+              width="100%"
+              height="100%"
+              fill="transparent"
+              filter="url(#gggrain-filter)"
+              opacity="0.43"
+              style={{ mixBlendMode: "overlay" }}
+            ></rect>
+          </g>
+        </svg>
       </div>
 
       <div className="container relative flex flex-col items-center   justify-center  py-28 w-full h-full">
-        <div className="absolute yellowButton bottom-10  right-7 ">
+        <div className="absolute  yellowButton bottom-10  right-7 ">
           <motion.button
             onClick={btnHandler}
             initial={{ scale: 0 }}
@@ -239,284 +355,6 @@ const Section1 = ({
           </button>
         </div>
       </div>
-    </motion.section>
-  );
-};
-
-const Section2 = ({
-  scrollYProgress,
-  setIsAnimationEnabled,
-}: {
-  scrollYProgress: MotionValue<number>;
-  setIsAnimationEnabled: React.Dispatch<React.SetStateAction<boolean>>;
-}) => {
-  const services = [
-    {
-      name: "Web Development",
-      img: "media/serviceImages/newImages/web development.png",
-      gradient: "bg-gradient-to-r from-[#fde68a] to-[#f59e0b] ",
-      link: "Web-Development",
-    },
-    {
-      name: "App Development",
-      img: "media/serviceImages/newImages/app development.png",
-      gradient: "bg-gradient-to-r from-[#fef08a] via-[#84cc16] to-[#16a34a]",
-      link: "App-Development",
-    },
-    {
-      name: "Social Media Marketing",
-      img: "media/serviceImages/newImages/social media marketing.png",
-      gradient:
-        "bg-[radial-gradient(ellipse_at_right,_var(--tw-gradient-stops))] from-[#f72464] via-[#ff858a] to-[#fff3a7]",
-      link: "Social-Media-Marketing",
-    },
-    {
-      name: "SEO Marketing",
-      img: "media/serviceImages/newImages/SEO marketing.png",
-      gradient: "bg-gradient-to-bl from-[#edd2f3] via-[#fffcdc] to-[#84dfff]",
-      link: "SEO-Marketing",
-    },
-    {
-      name: "Photography & Videography",
-      img: "media/serviceImages/newImages/Photography and Videography copy.png",
-      gradient:
-        "bg-[radial-gradient(ellipse_at_left,_var(--tw-gradient-stops))] from-[#6366f1] via-[#a5b4fc] to-[#e0e7ff] ",
-      link: "Photography",
-    },
-    {
-      name: "Media Buying",
-      img: "media/serviceImages/newImages/media buying.png",
-      gradient: "bg-gradient-to-bl from-[#84cc16] via-[#16a34a] to-[#0f766e] ",
-      link: "Media-Buying",
-    },
-    {
-      name: "Performance Marketing",
-      img: "media/serviceImages/newImages/performance marketing.png",
-      gradient: "bg-gradient-to-tl from-[#f6fbf4] via-[#f5df99] to-[#5fd068] ",
-      link: "Performance-Marketing",
-    },
-    {
-      name: "Content Marketing",
-      img: "media/serviceImages/newImages/Content Marketing copy.png",
-      gradient: "bg-gradient-to-b from-[#06b6d4] via-[#2563eb] to-[#6366f1]",
-      link: "Content-Marketing",
-    },
-    {
-      name: "Public Relations",
-      img: "media/serviceImages/newImages/public relation copy.png",
-      gradient: "bg-gradient-to-br from-[#f59e0b] via-[#ea580c] to-[#b91c1c] ",
-      link: "Public-Relations",
-    },
-    {
-      name: "Branding & Advertising",
-      img: "media/serviceImages/newImages/branding and advertising.png",
-      gradient: "bg-gradient-to-bl from-[#84cc16] via-[#22c55e] to-[#16a34a]",
-      link: "Branding",
-    },
-    {
-      name: "IT Consulting & Advisory",
-      img: "media/serviceImages/newImages/IT consulting and advisory copy.png",
-      gradient: "bg-gradient-to-b from-[#8d8daa] via-[#dfdfde] to-[#f7f5f2] ",
-      link: "IT-Consulting",
-    },
-    {
-      name: "Cyber Security",
-      img: "media/serviceImages/newImages/cyber security copy.png",
-      gradient:
-        "bg-[conic-gradient(at_bottom_right,_var(--tw-gradient-stops))] from-[#ff4d4d] via-[#ff8364] to-[#fdb87d]",
-      link: "Cyber-Security",
-    },
-  ];
-
-  const [viewportWidth, setViewportWidth] = React.useState(0);
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    // Ensure that the code only runs on the client-side (after the component is mounted)
-    if (typeof window !== "undefined") {
-      const handleScroll = () => {
-        if (ref.current) {
-          const rect = ref.current.getBoundingClientRect();
-          // Check if the top of the element is at the top of the viewport
-          if (rect.top <= 0) {
-            setIsAnimationEnabled(false); // Disable animation if the element is scrolled past
-          } else {
-            setIsAnimationEnabled(true); // Enable animation if the element is in the viewport
-          }
-        }
-      };
-
-      // Attach scroll event listener
-      window.addEventListener("scroll", handleScroll);
-
-      // Cleanup on unmount
-      return () => {
-        window.removeEventListener("scroll", handleScroll);
-      };
-    }
-  }, []);
-  const [sliderRef, instanceRef] = useKeenSlider({
-    vertical: viewportWidth > 450 ? true : false,
-  });
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (typeof window !== undefined) {
-        setViewportWidth(window.innerWidth);
-      }
-    };
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-  const scale = useTransform(
-    scrollYProgress,
-    [0, viewportWidth > 450 ? 0.5 : 0.2],
-    [viewportWidth > 450 ? 0.8 : 0.8, 1]
-  );
-  const rotate = useTransform(
-    scrollYProgress,
-    [0, viewportWidth > 450 ? 0.8 : 0.25],
-    [viewportWidth > 450 ? 1 : 0.25, 0]
-  );
-
-  const [hoverId, setHoverId] = React.useState<number>(0);
-  const [hoverStyle, setHoverStyle] = React.useState({});
-  const [containerHeight, setContainerHeight] = React.useState(0);
-  const btnRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  useEffect(() => {
-    const updateContainerHeight = () => {
-      if (containerRef.current) {
-        setContainerHeight(containerRef.current.clientHeight); // Get the height of the container
-      }
-    };
-    updateContainerHeight();
-    window.addEventListener("resize", updateContainerHeight);
-
-    return () => {
-      window.removeEventListener("resize", updateContainerHeight);
-    };
-  }, []);
-  useEffect(() => {
-    if (hoverId !== null && btnRefs.current[hoverId] && containerRef.current) {
-      const rect = btnRefs.current[hoverId].getBoundingClientRect();
-      const containerElement = containerRef.current;
-
-      setHoverStyle({
-        width: `${rect.width}px`,
-        height: `${rect.height}px`,
-        transform: `translateX(${
-          rect.x - containerElement.getBoundingClientRect().left
-        }px) translateY(${
-          rect.y - containerElement.getBoundingClientRect().top
-        }px)`,
-        transition: "all .7s cubic-bezier(0.165, 0.84, 0.44, 1)",
-      });
-    }
-  }, [hoverId]);
-
-  useEffect(() => {
-    if (instanceRef.current) {
-      instanceRef.current.moveToIdx(hoverId);
-    }
-  }, [hoverId, instanceRef]);
-
-  useEffect(() => {
-    if (containerHeight > 0 && instanceRef.current) {
-      instanceRef.current.update();
-    }
-  }, [containerHeight]);
-
-  return (
-    <motion.section
-      style={{ scale, rotate }}
-      className={`relative py-24 bg-slate-100 ${services[hoverId].gradient}  text-gray-950`}
-      ref={ref}
-    >
-      <motion.article
-        className="container flex justify-center lg:justify-start items-center gap-3 mx-auto z-[50] flex-wrap" // Added flex-wrap here
-      >
-        {["Services", "Designed", "to", "Drive", "Growth"].map(
-          (text, index) => (
-            <motion.h1
-              key={index}
-              transition={{
-                delay: index * 0.1,
-                duration: 0.6,
-                ease: [0.22, 0.61, 0.36, 1],
-              }}
-              viewport={{ once: true }}
-              initial={{ opacity: 0, y: 100 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              className="text-4xl lg:text-6xl leading-[100%] font-Grostek font-[600] tracking-tight break-words" // Added break-words class
-            >
-              {text}
-            </motion.h1>
-          )
-        )}
-      </motion.article>
-      <motion.div
-        className="mt-10 relative z-20 container grid grid-cols-1 lg:grid-cols-2 gap-10"
-        initial={{ opacity: 1 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        <div ref={containerRef} className="relative">
-          <div
-            className={`bg-black hidden lg:block origin-left black-Tab`}
-            style={{
-              position: "absolute",
-              zIndex: 1,
-              borderRadius: "8px",
-              ...hoverStyle,
-            }}
-          />
-
-          {services.map((service, idx) => (
-            <Link
-              key={idx}
-              href={`/${service.link}`}
-              onMouseEnter={() => setHoverId(idx)}
-              className="relative"
-            >
-              <button
-                ref={(el) => {
-                  btnRefs.current[idx] = el;
-                }}
-                className={`font-Grostek py-2 transition-colors duration-[.3] delay-[.2] relative z-10 px-4 w-full ${
-                  hoverId === idx
-                    ? "text-slate-50 bg-black lg:bg-transparent rounded-lg"
-                    : "text-slate-950"
-                } text-start font-[600] text-xl lg:text-2xl whitespace-nowrap`}
-              >
-                {service.name}
-              </button>
-            </Link>
-          ))}
-        </div>
-
-        <div className="hidden lg:block">
-          <div
-            ref={sliderRef}
-            style={{
-              height: `${viewportWidth > 450 ? containerHeight : 550}px`, // Adjust height based on viewportWidth
-            }}
-            className={`w-full keen-slider overflow-hidden `}
-          >
-            {services.map((service, idx) => (
-              <div key={idx} className={` keen-slider__slide h-full`}>
-                <motion.img
-                  src={service.img}
-                  key={hoverId}
-                  transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
-                  className="w-full h-full object-contain"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </motion.div>
     </motion.section>
   );
 };
