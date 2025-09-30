@@ -47,7 +47,12 @@ const ReviewCard = ({ img }: { img: string }) => {
 
 export function MarqueeLogo() {
   return (
-    <div className="relative bg-red-100 flex h-[400px] w-full flex-col items-center justify-center overflow-hidden rounded-lg">
+    <div className="relative  flex mb-20 w-full flex-col items-center justify-center overflow-hidden rounded-lg">
+      <div className="w-full mb-12 container">
+        <h1 className="text-3xl lg:text-5xl text-center font-SplineSans font-[500] ">
+          Trusted by
+        </h1>
+      </div>
       <Marquee reverse pauseOnHover className="[--duration:20s]">
         {secondRow.map((review, index) => (
           <ReviewCard key={index} {...review} />
@@ -58,8 +63,6 @@ export function MarqueeLogo() {
           <ReviewCard key={index} {...review} />
         ))}
       </Marquee>
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-red-100 via-red-100/80"></div>
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-red-100 via-red-100/80"></div>
     </div>
   );
 }

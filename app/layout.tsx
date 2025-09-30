@@ -27,7 +27,7 @@ export default function RootLayout({
       </head>
 
       <body className={`antialiased`}>
-        {/* Initialize Lenis Smooth Scrolling */}
+        
         <ReactLenis
           root
           options={{

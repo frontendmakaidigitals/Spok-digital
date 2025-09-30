@@ -5,19 +5,18 @@ const Service = () => {
   const serviceData = [
     {
       title: "Branding",
-      desc: "We will implement a full range of procedures in order to create a corporate identity for your company",
+      desc: "Craft an identity that speaks louder than words. From logo design to full-scale brand systems, we create brand identities that resonate, inspire, and stick. Whether you’re a startup looking to make a mark or an established business ready to evolve, our branding team ensures your story is told with impact.",
       lists: [
-        "Identity",
-        "Business Presentation",
-        "Photograph",
-        "Videograph",
+        "Brand Identity & Guidelines",
+        "Business Presentations",
+        "Photography & Videography",
         "UI/UX development",
         "3D Modelling",
       ],
     },
     {
       title: "Website Development",
-      desc: "We will develop an effective and responsive landing page, an online store or a multi-functional portal based on your requirements.",
+      desc: "Websites that don’t just look good—they convert. We design and develop user-centric, high-performing websites and web apps tailored to your business goals. Our websites are optimized for speed, scalability, and search, ensuring your digital presence works as hard as you do.",
       lists: [
         "Landing Pages",
         "Corporate websites",
@@ -26,28 +25,32 @@ const Service = () => {
       ],
     },
     {
-      title: "Attracting Clients",
-      desc: "We will organize integrated advertising campaigns for your business on the Internet and also we will determine the best source to attract the target audience.",
+      title: "Content Creation",
+      desc: "Content that cuts through the noise. From cinematic brand videos to scroll-stopping social media content, our creative team produces visuals and stories that grab attention and drive engagement.",
       lists: [
-        "SEO promotion",
-        "SMM promotion",
-        "Strategic marketing",
-        "Reputation management",
-        "Performance marketing",
-        "Contextual advertising",
-        "E-mail marketing",
+        "Brand Videos",
+        "Product Photography",
+        "Social Media Content",
+        "Motion Graphics",
       ],
     },
     {
-      title: "Mobile Development",
-      desc: "We develop mobile applications of any complexity according to the guidelines of Android and iOS systems",
-      lists: ["Android Applications", "IOS Applicatios"],
+      title: "Marketing",
+      desc: "Data-driven growth strategies that deliver ROI. We craft integrated marketing campaigns powered by data and creativity. Whether it’s search, social, or email, we help you attract, engage, and convert customers at scale.",
+      lists: [
+        "SEO Optimization",
+        "Social Media Marketing (SMM)",
+        "Strategic Marketing & Campaign Management",
+        "Performance Marketing (PPC & Paid Ads)",
+        "Reputation Management",
+        "Email Marketing",
+      ],
     },
   ];
   return (
     <div className="py-16">
       <div className="container">
-        <h1 className=" text-4xl mb-4 lg:mb-8 lg:text-6xl font-Grostek font-[600]">
+        <h1 className=" text-4xl text-[#590000] mb-4 lg:mb-8 lg:text-5xl font-Grostek font-[600]">
           Our Services
         </h1>
 

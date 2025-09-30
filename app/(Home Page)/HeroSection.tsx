@@ -307,33 +307,21 @@ const Section1 = ({
             </motion.div>
           ))}
         </div>
-        <div className="flex text-[.7rem] lg:text-lg justify-between items-center font-[500] font-Synonym mt-3 text-red-100 gap-2 overflow-hidden h-[50px] ">
-          {tags.map((tag, index) => (
-            <motion.p
-              key={index}
-              initial={{ y: index + 1 * -250 }}
-              animate={{ y: 0 }}
-              transition={{
-                delay: index * 0.15,
-                duration: 0.6,
-                ease: [0.22, 0.61, 0.36, 1],
-              }}
-              className={`pr-1 lg:pr-3 ${
-                index != 2 && "border-r"
-              } border-slate-50 `}
-            >
-              {" "}
-              {tag}
-            </motion.p>
-          ))}
+        <div className="flex max-w-4xl text-center text-[.7rem] lg:text-[.97rem] justify-between items-center font-[500] font-Synonym mt-2 text-red-100 ">
+          <p className="">
+            We’re not just another agency—we’re your growth partner. At Spok
+            Digital, we blend creativity, technology, and strategy to help
+            ambitious businesses build powerful brands, cutting-edge websites,
+            and high-performing campaigns.
+          </p>
         </div>
         <div className="mt-6">
           <button
             onClick={() => setIsFormOpen(true)}
-            className="group relative inline-flex h-12 w-12 items-center justify-center overflow-hidden rounded-full bg-gradient-to-tr from-red-100 to-red-300  font-medium text-red-950   transition-all duration-300 hover:w-40"
+            className="group relative inline-flex h-12 w-12 items-center justify-center overflow-hidden rounded-full bg-gradient-to-tr from-red-100 to-red-300  font-medium text-red-950   transition-all duration-300 hover:w-[340px]"
           >
             <div className="inline-flex whitespace-nowrap opacity-0 transition-all duration-200 group-hover:-translate-x-3 group-hover:opacity-100">
-              Get in Touch
+              Let&apos;s Build Something Extraordinary
             </div>
             <div className="absolute right-3.5">
               <svg
