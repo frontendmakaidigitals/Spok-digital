@@ -59,7 +59,6 @@ jobs:
           # Set deployment variables
           APP_NAME="spok-digital"
           DEPLOY_PATH="/home/milestonehre/spok-digital"
-          PORT=3013
           
           # Create deployment directory
           sudo mkdir -p $DEPLOY_PATH
@@ -100,7 +99,6 @@ jobs:
           # Set deployment variables
           APP_NAME="spok-digital"
           DEPLOY_PATH="/home/milestonehre/spok-digital"
-          PORT=3013
           
           cd $DEPLOY_PATH/current
           
@@ -114,11 +112,26 @@ jobs:
           # Create .env file with production settings
           cat > .env << EOF
           NODE_ENV=production
-          PORT=$PORT
+          PORT=3013
           EOF
           
-          # Start application with PM2
-          pm2 start npm --name "$APP_NAME" -- start
+          # Create PM2 ecosystem file
+          cat > ecosystem.config.js << EOF
+          module.exports = {
+            apps: [{
+              name: '$APP_NAME',
+              script: 'npm',
+              args: 'start',
+              env: {
+                NODE_ENV: 'production',
+                PORT: 3013
+              }
+            }]
+          };
+          EOF
+          
+          # Start application with PM2 using ecosystem file
+          pm2 start ecosystem.config.js
           pm2 save
           
           # Enable PM2 startup if not already enabled
