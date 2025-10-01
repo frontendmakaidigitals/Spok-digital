@@ -1,7 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { ReactLenis, useLenis } from "lenis/react"; // useLenis hook
+import { motion, AnimatePresence } from "framer-motion";
+
 const Portfolio = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
@@ -13,36 +14,29 @@ const Portfolio = () => {
     { title: "Bizgrowth", img: "/sites/bizgrowth.png" },
     { title: "Teeser", img: "/sites/teeser.png" },
   ];
-  const lenis = useLenis(); // access the global Lenis instance
+
+  // Lock scroll when modal is open
   useEffect(() => {
-    if (!lenis) return;
-
     if (selectedImage) {
-      lenis.stop(); // pause global scroll
+      document.body.classList.add("overflow-hidden");
     } else {
-      lenis.start(); // resume global scroll
+      document.body.classList.remove("overflow-hidden");
     }
-
-    return () => {
-      lenis.start(); // ensure scroll resumes on unmount
-    };
-  }, [selectedImage, lenis]);
+    return () => document.body.classList.remove("overflow-hidden");
+  }, [selectedImage]);
 
   return (
     <section className="w-full bg-[#121212] py-20 px-6">
       <div className="max-w-6xl mx-auto text-center">
-        {/* Headline */}
         <h1 className="text-3xl lg:text-5xl font-Grostek text-[#FCFBF8] font-[600] mb-4">
           Proof That Speaks for Itself
         </h1>
-        {/* Subtext */}
         <p className="text-[#FCFBF8] mb-12 max-w-3xl mx-auto">
           We&apos;ve helped brands across industries stand out, scale, and
           succeed. Explore some of our most impactful projects in branding, web
           development, and marketing.
         </p>
 
-        {/* Showcase Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
             <div
@@ -68,30 +62,43 @@ const Portfolio = () => {
         </div>
       </div>
 
-      {/* Fullscreen Modal */}
-      {selectedImage && (
-        <div
-          className="fixed inset-0 bg-black/90 z-[100] flex items-center justify-center"
-          onClick={() => setSelectedImage(null)}
-        >
-          <div className="relative w-full h-full overflow-auto p-4">
-            <Image
-              src={selectedImage}
-              alt="Project Preview"
-              width={1920}
-              height={1080}
-              className="mx-auto object-contain"
-            />
-          </div>
-          {/* Close button */}
-          <button
+      {/* Fullscreen Modal with animation */}
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div
+            className="fixed inset-0 bg-black/90 z-[100] flex items-center justify-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             onClick={() => setSelectedImage(null)}
-            className="absolute top-4 right-4 text-white text-3xl font-bold"
           >
-            ×
-          </button>
-        </div>
-      )}
+            <motion.div
+              className="relative w-full max-w-6xl h-full max-h-screen overflow-auto p-4"
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.8 }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              onClick={(e) => e.stopPropagation()} // Prevent modal close when clicking inside
+            >
+              <Image
+                src={selectedImage}
+                alt="Project Preview"
+                width={1920}
+                height={1080}
+                className="mx-auto object-contain"
+              />
+            </motion.div>
+
+            {/* Close button */}
+            <button
+              onClick={() => setSelectedImage(null)}
+              className="absolute top-4 right-4 text-white text-3xl font-bold z-50"
+            >
+              ×
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };

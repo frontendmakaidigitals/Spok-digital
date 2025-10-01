@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import NavBar from "./App chunks/components/Navbar";
-import { ReactLenis } from "lenis/react"; // Import ReactLenis
+import { LenisProvider } from "./LenisProvider"; // Import ReactLenis
 import ToTop from "./App chunks/components/ToTop";
 import Footer from "./App chunks/components/Footer";
 import Template from "./Template";
@@ -27,23 +27,13 @@ export default function RootLayout({
       </head>
 
       <body className={`antialiased`}>
-        
-        <ReactLenis
-          root
-          options={{
-            lerp: 0.1,
-            smoothWheel: true,
-            duration: 1.5,
-          }}
-        >
-          <Loading />
-          <div className="w-full relative">
-            <NavBar />
-          </div>
-          <ToTop />
-          <Template>{children}</Template>
-          <Footer />
-        </ReactLenis>
+        <Loading />
+        <div className="w-full relative">
+          <NavBar />
+        </div>
+        <ToTop />
+        <Template>{children}</Template>
+        <Footer />
       </body>
     </html>
   );

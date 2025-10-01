@@ -8,6 +8,7 @@ import Form from "./App chunks/components/Form";
 import { AnimatePresence, motion } from "framer-motion";
 import { MarqueeLogo } from "./App chunks/components/MarqueeLogo";
 import Service from "./(Home Page)/Service";
+import CTA from "./(Home Page)/CTA";
 import Portfolio from "./(Home Page)/Portfolio";
 export default function Home() {
   return (
@@ -32,7 +33,7 @@ export default function Home() {
         <MaskSection />
         <Testimonials />
         <TechLogo />
-        <Form />
+        <CTA />
         <MarqueeLogo />
       </motion.div>
     </AnimatePresence>
