@@ -1,7 +1,7 @@
 "use client";
 import { AnimatePresence, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 
 const Loading = () => {
   return (
@@ -17,16 +17,27 @@ const Loader = () => {
   const [isLoading, setIsLoading] = React.useState(true);
   const [viewportWidth, setViewPortWidth] = React.useState(0);
   const pathname = usePathname();
- 
-  React.useEffect(() => {
+
+  useEffect(() => {
     setIsLoading(true);
-    if (typeof window !== undefined) {
+    if (typeof window !== "undefined") {
       setViewPortWidth(window.innerWidth);
+
+      const handleLoad = () => {
+        // small delay to smoothen transition
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 300);
+      };
+
+      // if page is already cached & loaded
+      if (document.readyState === "complete") {
+        handleLoad();
+      } else {
+        window.addEventListener("load", handleLoad);
+        return () => window.removeEventListener("load", handleLoad);
+      }
     }
-    const timeoutId = setTimeout(() => {
-      setIsLoading(false);
-    }, 800);
-    return () => clearTimeout(timeoutId);
   }, [pathname]);
   const stairs = 5;
   return (

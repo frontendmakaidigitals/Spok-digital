@@ -35,9 +35,7 @@ const Footer = () => {
     >
       <div className="container  grid grid-cols-1 lg:grid-cols-[0.7fr_1.3fr] gap-10">
         <div className="">
-          <motion.div
-            animate={{ y: inView ? 0 : 200, rotate: inView ? 0 : 10 }}
-          >
+          <motion.div>
             <Logo source="/spok-white.png" className="!w-[200px]" />
           </motion.div>
           <motion.p
