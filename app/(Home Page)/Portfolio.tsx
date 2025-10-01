@@ -23,7 +23,7 @@ const Portfolio = () => {
     }
     return () => document.body.classList.remove("overflow-hidden");
   }, [selectedImage]);
-
+  console.log(selectedImage);
   return (
     <section className="w-full bg-[#121212] py-20 px-6">
       <div className="max-w-6xl mx-auto text-center">
@@ -85,7 +85,7 @@ const Portfolio = () => {
                 alt="Project Preview"
                 width={1920}
                 height={1080}
-                className="mx-auto w-full h-full object-contain"
+                className="mx-auto w-full h-auto object-contain"
               />
             </motion.div>
 
