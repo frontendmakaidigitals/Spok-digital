@@ -15,7 +15,6 @@ const Portfolio = () => {
     { title: "Teeser", img: "/sites/teeser.png" },
   ];
 
-  // Lock scroll when modal is open
   useEffect(() => {
     if (selectedImage) {
       document.body.classList.add("overflow-hidden");
