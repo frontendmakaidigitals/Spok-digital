@@ -42,6 +42,4 @@ next-env.d.ts
 
 .vercel
 #video remove 
-echo "*.mp4" >> .gitignore
-git add .gitignore
-git commit -m "Ignore MP4 files"
+ 
