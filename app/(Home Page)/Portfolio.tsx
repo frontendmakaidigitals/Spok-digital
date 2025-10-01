@@ -85,7 +85,7 @@ const Portfolio = () => {
                 alt="Project Preview"
                 width={1920}
                 height={1080}
-                className="mx-auto object-contain"
+                className="mx-auto w-full h-full object-contain"
               />
             </motion.div>
 
