@@ -86,6 +86,7 @@ const Portfolio = () => {
                 width={1920}
                 height={1080}
                 className="mx-auto w-full h-auto object-contain"
+                unoptimized
               />
             </motion.div>
 
