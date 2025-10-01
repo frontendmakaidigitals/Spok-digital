@@ -12,7 +12,7 @@ const CardDistribution = () => {
   useEffect(() => {
     const ctx = gsap.context(() => {
       const total = cardsRef.current.length;
-      const vw = window?.innerWidth || 1900;
+      const vw = window.innerWidth;
       const isMobile = vw <= 768; // breakpoint for mobile
       const cardWidth = 350;
       const leftPadding = 50;

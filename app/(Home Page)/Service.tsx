@@ -1,3 +1,4 @@
+"use client";
 import { Minus } from "lucide-react";
 import React from "react";
 
@@ -65,40 +66,36 @@ const Service = () => {
               <h2 className="text-xl font-[600] font-Synonym mb-4">
                 {service.title}
               </h2>
+
+              <p className="block lg:hidden">{service.desc}</p>
               {idx == 1 ? (
-                <div className=" w-[70%] overflow-hidden absolute top-0 right-0 h-full hidden lg:flex justify-between items-end gap-3">
+                <div className="w-full mt-12 lg:mt-0 lg:w-[70%] overflow-hidden lg:absolute top-0 right-0 lg:h-full flex justify-between  items-end lg:items-end lg:gap-3">
                   <img
-                    src="https://bidusdigital.com/wp-content/themes/bidusdigital/images/sep4.png"
-                    alt="watch"
-                    className="h-[30%] w-auto object-contain"
-                  />
-                  <img
-                    src="https://bidusdigital.com/wp-content/themes/bidusdigital/images/sep3.png"
+                    src="/servicesMedia/mobile.png"
                     alt="mobile"
-                    className="h-[50%] w-auto object-contain"
+                    className="h-[200px] lg:h-[60%]  w-auto  object-contain"
                   />
                   <img
-                    src="https://bidusdigital.com/wp-content/themes/bidusdigital/images/sep2.png"
-                    alt="tablet"
-                    className="h-[60%] w-auto object-contain"
+                    src="/servicesMedia/tab.png"
+                    alt="tab"
+                    className="h-[250px] lg:h-[70%]  w-auto  object-contain"
                   />
                   <img
-                    src="https://bidusdigital.com/wp-content/themes/bidusdigital/images/sep1.png"
-                    alt="desktop"
-                    className="h-[70%] w-auto object-contain"
+                    src="/servicesMedia/laptop.png"
+                    alt="laptop"
+                    className=" h-[90%] hidden  lg:block w-auto  object-contain"
                   />
                 </div>
               ) : null}
               {idx == 2 ? (
-                <div className="w-[70%] hidden lg:block h-full absolute top-0 right-0">
+                <div className="w-full mt-10 lg:mt-0 lg:w-[80%] block lg:h-full lg:absolute top-0 right-0">
                   <img
-                    src={"/about.png"}
+                    src={"/servicesMedia/RE.png"}
                     className="w-full h-full object-cover"
                     alt={""}
                   />
                 </div>
               ) : null}
-              <p className="block lg:hidden">{service.desc}</p>
               <ul className="space-y-2 hidden lg:block">
                 {service.lists.map((item, index) => (
                   <li

@@ -2,7 +2,7 @@
 import HeroSection from "./(Home Page)/HeroSection";
 import Testimonials from "./(Home Page)/Testimonials";
 import { TechLogo } from "./(Home Page)/TechLogo";
-import MaskSection from "./(Home Page)/MaskSection";
+import CardDistribution from "./(Home Page)/MaskSection";
 import { TextMarquee } from "./(Home Page)/Text-Marquee";
 import Form from "./App chunks/components/Form";
 import { AnimatePresence, motion } from "framer-motion";
@@ -30,7 +30,7 @@ export default function Home() {
         <Service />
         <TextMarquee />
         <Portfolio />
-        <MaskSection />
+        <CardDistribution />
         <Testimonials />
         <TechLogo />
         <CTA />

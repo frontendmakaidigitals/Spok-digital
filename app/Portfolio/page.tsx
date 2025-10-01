@@ -100,7 +100,7 @@ const Page = () => {
   ];
 
   const scrollToWithEasing = (targetY: number) => {
-    const start = window.scrollY;
+    const start =  window.scrollY
     const distance = targetY - start;
 
     animate(0, 1, {
