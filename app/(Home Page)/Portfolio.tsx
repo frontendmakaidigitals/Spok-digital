@@ -47,7 +47,8 @@ const Portfolio = () => {
                 <Image
                   src={project.img}
                   alt={project.title}
-                  fill
+                  width={400}
+                  height={400}
                   className="object-cover object-top transform group-hover:scale-110 transition duration-500"
                 />
               </div>
